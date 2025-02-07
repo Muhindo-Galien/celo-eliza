@@ -166,9 +166,9 @@ export const faucetTemplate = `Given the recent messages and wallet information 
 
 {{walletInfo}}
 
-Extract the following information about the requested vote:
-- Receiver address
-- Chain to execute on
+Your goal is to extract the following information about the requested transfer:
+1. Chain to execute on (must be one of the supported chains)
+
 
 Respond with a JSON markdown block containing only the extracted values. Use null for any values that cannot be determined:
 
