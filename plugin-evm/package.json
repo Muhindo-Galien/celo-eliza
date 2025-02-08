@@ -24,6 +24,7 @@
         "@lifi/data-types": "5.15.5",
         "@lifi/sdk": "3.4.1",
         "@lifi/types": "16.3.0",
+        "hardhat": "^2.22.18",
         "node-cache": "^5.1.2",
         "tsup": "8.3.5",
         "typescript": "^5.7.3",
