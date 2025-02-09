@@ -7,6 +7,7 @@ import type { Plugin } from "@elizaos/core";
 import { transferAction } from "./actions/transfer";
 import { faucetAction } from "./actions/faucet";
 import { evmWalletProvider } from "./providers/wallet";
+import { addLiquidityAction } from "./actions/addLiquidity";
 
 export const evmPlugin: Plugin = {
   name: "evm",
@@ -14,7 +15,7 @@ export const evmPlugin: Plugin = {
   providers: [evmWalletProvider],
   evaluators: [],
   services: [],
-  actions: [transferAction,faucetAction],
+  actions: [transferAction, faucetAction, addLiquidityAction],
 };
 
 export default evmPlugin;
