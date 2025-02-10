@@ -137,7 +137,7 @@ export const pooInfoTemplate = `Given the recent messages and wallet information
 {{walletInfo}}
 
 Extract the following information about the requested poolInfo:
-- amountToSwap: Must be a string representing the amount of celo or icebear tokens in ether (only string, e.g., "2 celo")
+- amountToSwap: Must be a string representing the amount of celo or icebear tokens in ether (only string, e.g., "2 celo", "2 icebear")
 - reservedIcebear: Must be a string representing total number of icebear tokens held by the pool in ether (only number , e.g., "2")
 - celoBalance: Must be a string representing total number of celo tokens held by the pool in ether (only number , e.g., "2")
 - Chain to execute on

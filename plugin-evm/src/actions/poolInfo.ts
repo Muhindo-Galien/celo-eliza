@@ -10,19 +10,17 @@ import {
 } from "@elizaos/core";
 import { WalletProvider } from "../providers/wallet";
 import {
-  addLiquidityTemplate,
-  faucetTemplate,
   pooInfoTemplate,
 } from "../templates";
-import type { InfoParams, SupportedChain, Transaction } from "../types";
-import { getTxData, sendTransaction } from "./services";
+import type { InfoParams, SupportedChain } from "../types";
 import {
   EXCHANGE_CONTRACT_ABI,
   EXCHANGE_CONTRACT_ADDRESS,
   TOKEN_CONTRACT_ABI,
   TOKEN_CONTRACT_ADDRESS,
 } from "../contracts/artifacts";
-import { Abi, Address, formatUnits, parseEther } from "viem";
+import { Address, formatUnits, parseEther } from "viem";
+import { round } from "../utils";
 
 export class PoolInfoAction {
   constructor(private walletProvider: WalletProvider) {
@@ -40,9 +38,9 @@ export class PoolInfoAction {
           abi: EXCHANGE_CONTRACT_ABI,
           functionName: "getAmountOfTokens",
           args: [
-            params.amountToSwap?.match(/\d+(\.\d+)?/)[0],
-            params.celoBalance,
-            params.reservedIcebear,
+            parseEther(params.amountToSwap?.match(/\d+(\.\d+)?/)[0]),
+            parseEther(params.celoBalance),
+            parseEther(params.reservedIcebear),
           ],
         });
         return amountOfTokens.toString();
@@ -52,9 +50,9 @@ export class PoolInfoAction {
           abi: EXCHANGE_CONTRACT_ABI,
           functionName: "getAmountOfTokens",
           args: [
-            params.amountToSwap?.match(/\d+(\.\d+)?/)[0],
-            params.reservedIcebear,
-            params.celoBalance,
+            parseEther(params.amountToSwap?.match(/\d+(\.\d+)?/)[0]),
+            parseEther(params.reservedIcebear),
+            parseEther(params.celoBalance),
           ],
         });
         return amountOfTokens.toString();
@@ -76,14 +74,14 @@ export const getCeloBalance = async (
       const balance = await client.getBalance({
         address: EXCHANGE_CONTRACT_ADDRESS,
       });
-      const balanceFormatted = formatUnits(balance, 18);
-      return balanceFormatted;
+      // const balanceFormatted = formatUnits(balance, 18);
+      return balance;
     } else {
       const balance = await client.getBalance({
         address: walletProvider.account.address,
       });
       const balanceFormatted = balance;
-      return balanceFormatted;
+      return balanceFormatted.toString();
     }
   } catch (error) {
     console.log("Error getting celo balance:", error.message);
@@ -148,7 +146,7 @@ export const getReserveOfIcebearTokens = async (
       args: [],
     });
 
-    return balanceOfIcebearTokens;
+    return balanceOfIcebearTokens.toString();
   } catch (error) {
     console.log(
       "Error getting the reserve of Icebear tokens held by the pool:",
@@ -198,7 +196,6 @@ export const poolInfoAction = {
       };
 
       // Prints information
-      console.log("addPooInfoParamslInfoOptions", infoParams);
       console.log(
         "If celo is selected",
         infoParams.amountToSwap?.toLowerCase().includes("celo")
@@ -209,19 +206,21 @@ export const poolInfoAction = {
         await getCeloBalance(walletProvider, infoParams.chain, false)
       );
 
-      console.log(
-        "User icebar balance:",
-        await getIcebearTokensBalance(
-          walletProvider,
-          infoParams.chain,
-          walletProvider.account.address
-        )
+      const icebarBalance = await getIcebearTokensBalance(
+        walletProvider,
+        infoParams.chain,
+        walletProvider.account.address
       );
+      console.log("User icebar balance:", icebarBalance);
 
-      console.log(
-        "Pool celo  balance:",
-        await getCeloBalance(walletProvider, infoParams.chain, true)
+      const poolCeloBalance = await getCeloBalance(
+        walletProvider,
+        infoParams.chain,
+        true
       );
+      infoParams.celoBalance = poolCeloBalance.toString();
+
+      console.log("Pool celo  balance:", poolCeloBalance);
 
       console.log(
         "Pool icebar balance:",
@@ -241,30 +240,38 @@ export const poolInfoAction = {
         )
       );
 
+      const reserveBalance = await getReserveOfIcebearTokens(
+        walletProvider,
+        infoParams.chain
+      );
+      infoParams.reservedIcebear = reserveBalance.toString();
+
       console.log(
         "The reserve of Icebear tokens held by the pool:",
-        await getReserveOfIcebearTokens(walletProvider, infoParams.chain)
+        reserveBalance
       );
 
-      const action = new PoolInfoAction(walletProvider);
-      // const amountToReceive = await action.getPoolInfo(infoParams);
+      console.log("addPooInfoParamslInfoOptions", infoParams);
 
-      // if (callback) {
-      //   callback({
-      //     text: `You'll get ${
-      //       infoParams.amountToSwap?.toLowerCase().includes("celo")
-      //         ? amountToReceive + "Celo"
-      //         : amountToReceive + "icebar"
-      //     } tokens`,
-      //     content: {
-      //       success: true,
-      //       chain: content.chain,
-      //     },
-      //   });
-      // }
+      const action = new PoolInfoAction(walletProvider);
+      const amountToReceive = await action.getPoolInfo(infoParams);
+
+      if (callback) {
+        callback({
+          text: `You'll need ${
+            infoParams.amountToSwap?.toLowerCase().includes("celo")
+              ? round(formatUnits(BigInt(amountToReceive), 18)) + " icebar"
+              : round(formatUnits(BigInt(amountToReceive), 18)) + " celo"
+          } tokens`,
+          content: {
+            success: true,
+            chain: content.chain,
+          },
+        });
+      }
       return true;
     } catch (error) {
-      console.error("Error in poo info handler:", error.message);
+      console.error("Error in pool info handler:", error.message);
       if (callback) {
         callback({ text: `Error: ${error.message}` });
       }
@@ -282,6 +289,15 @@ export const poolInfoAction = {
         user: "user",
         content: {
           text: "i want to swap 1 celo for icebar tokens ",
+          action: "POOL_INFORMATION",
+        },
+      },
+    ],
+    [
+      {
+        user: "user",
+        content: {
+          text: "i want to swap 100 icebar for celo tokens ",
           action: "POOL_INFORMATION",
         },
       },
