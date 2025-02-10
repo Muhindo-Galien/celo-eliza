@@ -146,3 +146,10 @@ export interface LiquidityParams {
   icebear: string;
   celo: string;
 }
+
+export interface InfoParams {
+  chain: SupportedChain;
+  amountToSwap: string;
+  celoBalance?: string;
+  reservedIcebear?: string;
+}

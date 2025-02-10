@@ -8,6 +8,7 @@ import { transferAction } from "./actions/transfer";
 import { faucetAction } from "./actions/faucet";
 import { evmWalletProvider } from "./providers/wallet";
 import { addLiquidityAction } from "./actions/addLiquidity";
+import { poolInfoAction } from "./actions/poolInfo";
 
 export const evmPlugin: Plugin = {
   name: "evm",
@@ -15,7 +16,7 @@ export const evmPlugin: Plugin = {
   providers: [evmWalletProvider],
   evaluators: [],
   services: [],
-  actions: [transferAction, faucetAction, addLiquidityAction],
+  actions: [transferAction, faucetAction, addLiquidityAction, poolInfoAction],
 };
 
 export default evmPlugin;

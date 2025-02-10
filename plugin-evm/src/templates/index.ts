@@ -130,6 +130,28 @@ Respond with a JSON markdown block containing only the extracted values. Use nul
 \`\`\`
 `;
 
+export const pooInfoTemplate = `Given the recent messages and wallet information below:
+
+{{recentMessages}}
+
+{{walletInfo}}
+
+Extract the following information about the requested poolInfo:
+- amountToSwap: Must be a string representing the amount of celo or icebear tokens in ether (only string, e.g., "2 celo")
+- reservedIcebear: Must be a string representing total number of icebear tokens held by the pool in ether (only number , e.g., "2")
+- celoBalance: Must be a string representing total number of celo tokens held by the pool in ether (only number , e.g., "2")
+- Chain to execute on
+
+Respond with a JSON markdown block containing only the extracted values. Use null for any values that cannot be determined:
+
+\`\`\`json
+{
+    "amountToSwap": string | null ,
+    "chain": "celoAlfajores| "ethereum" | "abstract" | "base" | "sepolia" | "bsc" | "arbitrum" | "avalanche" | "polygon" | "optimism" | "cronos" | "gnosis" | "fantom" | "klaytn" | "celo" | "moonbeam" | "aurora" | "harmonyOne" | "moonriver" | "arbitrumNova" | "mantle" | "linea" | "scroll" | "filecoin" | "taiko" | "zksync" | "canto" | "alienx" | null,
+}
+\`\`\`
+`;
+
 export const proposeTemplate = `Given the recent messages and wallet information below:
 
 {{recentMessages}}
