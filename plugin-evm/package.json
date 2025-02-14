@@ -24,16 +24,20 @@
         "@lifi/data-types": "5.15.5",
         "@lifi/sdk": "3.4.1",
         "@lifi/types": "16.3.0",
+        "@uniswap/sdk-core": "^7.5.0",
+        "@uniswap/v3-sdk": "^3.24.0",
+        "axios": "^1.7.9",
+        "dotenv": "^16.4.7",
         "hardhat": "^2.22.18",
         "node-cache": "^5.1.2",
-        "tsup": "8.3.5",
         "typescript": "^5.7.3",
         "viem": "^2.22.22",
         "vitest": "^3.0.5",
         "zod": "^3.24.1"
     },
     "devDependencies": {
-        "@biomejs/biome": "1.9.4"
+        "@biomejs/biome": "1.9.4",
+        "tsup": "8.3.5"
     },
     "scripts": {
         "build": "tsup --format esm --dts",

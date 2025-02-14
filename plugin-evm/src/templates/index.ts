@@ -151,6 +151,28 @@ Respond with a JSON markdown block containing only the extracted values. Use nul
 }
 \`\`\`
 `;
+export const opportunitiesTemplate = `Given the recent messages and wallet information below:
+
+{{recentMessages}}
+
+{{walletInfo}}
+Extract the following information about the requested poolInfo:
+- rewards: Must be a string representing the pool with high profit (only string, e.g., "high profit", "highly profitable","more daily rewards","more daily revenue", etc)
+- apr: Must be a string representing the pool with high apr (only string, e.g., "greatest apr","high apr","highest APR", etc)
+- moreTvl: Must be a string representing the pool with high tvl (only string, e.g., "greatest tvl","high tvl","highest tvl", etc)
+
+
+Respond with a JSON markdown block containing only the extracted values. Use null for any values that cannot be determined:
+
+\`\`\`json
+{
+    "rewards": string | null ,
+    "apr": string | null ,
+    "moreTvl": string | null ,
+    "chain": "celoAlfajores| "ethereum" | "abstract" | "base" | "sepolia" | "bsc" | "arbitrum" | "avalanche" | "polygon" | "optimism" | "cronos" | "gnosis" | "fantom" | "klaytn" | "celo" | "moonbeam" | "aurora" | "harmonyOne" | "moonriver" | "arbitrumNova" | "mantle" | "linea" | "scroll" | "filecoin" | "taiko" | "zksync" | "canto" | "alienx" | null,
+}
+\`\`\`
+`;
 
 export const proposeTemplate = `Given the recent messages and wallet information below:
 
