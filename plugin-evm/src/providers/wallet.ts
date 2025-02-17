@@ -1,3 +1,4 @@
+import { SteerClient } from "@steerprotocol/sdk";
 import {
     createPublicClient,
     createTestClient,
@@ -7,6 +8,7 @@ import {
     publicActions,
     walletActions,
 } from "viem";
+
 import { privateKeyToAccount } from "viem/accounts";
 import {
     type IAgentRuntime,
@@ -86,6 +88,19 @@ export class WalletProvider {
     });
 
     return walletClient;
+  }
+
+  getSteerClient(chainName: SupportedChain) {
+    const publicClient = this.getPublicClient(chainName);
+    const walletClient = this.getWalletClient(chainName);
+    // Initialize SteerClient
+    const steerClient = new SteerClient({
+      environment: "production", // Use 'testnet' for testing
+      client: publicClient as any,
+      walletClient: walletClient,
+    });
+
+    return steerClient;
   }
 
   getTestClient(): TestClient {

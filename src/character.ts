@@ -4,8 +4,7 @@ import {
   defaultCharacter,
   ModelProviderName,
 } from "@elizaos/core";
-import evmPlugin from "@elizaos/plugin-evm";
-
+import evmPlugin from "../plugin-evm/src";
 export const character: Character = {
   ...defaultCharacter,
   name: "Eliza",
