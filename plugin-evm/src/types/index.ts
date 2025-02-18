@@ -8,8 +8,10 @@ import type {
   PublicClient,
   WalletClient,
   Log,
+  Abi,
 } from "viem";
 import * as viemChains from "viem/chains";
+import { WalletProvider } from "../providers/wallet";
 
 const _SupportedChainList = Object.keys(viemChains) as Array<
   keyof typeof viemChains
@@ -153,3 +155,20 @@ export interface InfoParams {
   celoBalance?: string;
   reservedIcebear?: string;
 }
+
+export interface ContractCallParams {
+  walletClient?: WalletClient;
+  publicClient: PublicClient;
+  address: Address;
+  abi: Abi;
+  functionName;
+  args;
+}
+
+export interface OpportunityParams {
+  chain: SupportedChain;
+  rewards?: string | null;
+  apr?: string | null;
+  moreTvl?: string | null;
+}
+

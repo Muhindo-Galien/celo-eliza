@@ -9,7 +9,9 @@ import {
   ModelClass,
 } from "@elizaos/core";
 import { WalletProvider } from "../providers/wallet";
-import { pooInfoTemplate } from "../templates";
+import {
+  pooInfoTemplate,
+} from "../templates";
 import type { InfoParams, SupportedChain } from "../types";
 import {
   EXCHANGE_CONTRACT_ABI,
@@ -29,16 +31,7 @@ export class PoolInfoAction {
     try {
       // Log current block before sending transaction
       const publicClient = this.walletProvider.getPublicClient(params.chain);
-      // =============================================================================
-      const SteerClient = this.walletProvider.getSteerClient("celo");
-      // Get pools for specific chain
-      const chainPools = await SteerClient.staking.getStakingPools({
-        chainId: 42220, // Polygon
-      });
-      console.log("chainPools", chainPools);
-      // =============================================================================
-      console.log("============================================helo============================================");
-      
+
       if (params.amountToSwap?.toLowerCase().includes("celo")) {
         const amountOfTokens = await publicClient.readContract({
           address: EXCHANGE_CONTRACT_ADDRESS,
@@ -203,22 +196,22 @@ export const poolInfoAction = {
       };
 
       // Prints information
-      // console.log(
-      //   "If celo is selected",
-      //   infoParams.amountToSwap?.toLowerCase().includes("celo")
-      // );
+      console.log(
+        "If celo is selected",
+        infoParams.amountToSwap?.toLowerCase().includes("celo")
+      );
 
-      // console.log(
-      //   "User celo  balance:",
-      //   await getCeloBalance(walletProvider, infoParams.chain, false)
-      // );
+      console.log(
+        "User celo  balance:",
+        await getCeloBalance(walletProvider, infoParams.chain, false)
+      );
 
-      // const icebarBalance = await getIcebearTokensBalance(
-      //   walletProvider,
-      //   infoParams.chain,
-      //   walletProvider.account.address
-      // );
-      // console.log("User icebar balance:", icebarBalance);
+      const icebarBalance = await getIcebearTokensBalance(
+        walletProvider,
+        infoParams.chain,
+        walletProvider.account.address
+      );
+      console.log("User icebar balance:", icebarBalance);
 
       const poolCeloBalance = await getCeloBalance(
         walletProvider,
@@ -227,25 +220,25 @@ export const poolInfoAction = {
       );
       infoParams.celoBalance = poolCeloBalance.toString();
 
-      // console.log("Pool celo  balance:", poolCeloBalance);
+      console.log("Pool celo  balance:", poolCeloBalance);
 
-      // console.log(
-      //   "Pool icebar balance:",
-      //   await getIcebearTokensBalance(
-      //     walletProvider,
-      //     infoParams.chain,
-      //     EXCHANGE_CONTRACT_ADDRESS
-      //   )
-      // );
+      console.log(
+        "Pool icebar balance:",
+        await getIcebearTokensBalance(
+          walletProvider,
+          infoParams.chain,
+          EXCHANGE_CONTRACT_ADDRESS
+        )
+      );
 
-      // console.log(
-      //   "User Icebear LP Token balance:",
-      //   await getLPTokensBalance(
-      //     walletProvider,
-      //     infoParams.chain,
-      //     walletProvider.account.address
-      //   )
-      // );
+      console.log(
+        "User Icebear LP Token balance:",
+        await getLPTokensBalance(
+          walletProvider,
+          infoParams.chain,
+          walletProvider.account.address
+        )
+      );
 
       const reserveBalance = await getReserveOfIcebearTokens(
         walletProvider,
@@ -253,12 +246,13 @@ export const poolInfoAction = {
       );
       infoParams.reservedIcebear = reserveBalance.toString();
 
-      // console.log(
-      //   "The reserve of Icebear tokens held by the pool:",
-      //   reserveBalance
-      // );
+      console.log(
+        "The reserve of Icebear tokens held by the pool:",
+        reserveBalance
+      );
 
-      // console.log("addPooInfoParamslInfoOptions", infoParams);
+      console.log("addPooInfoParamslInfoOptions", infoParams);
+
       const action = new PoolInfoAction(walletProvider);
       const amountToReceive = await action.getPoolInfo(infoParams);
 
