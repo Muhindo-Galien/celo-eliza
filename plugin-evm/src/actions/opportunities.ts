@@ -1,3 +1,6 @@
+import pkg, { SteerConfig } from "@steerprotocol/sdk";
+// @ts-ignore
+const { SteerClient } = pkg;
 import {
   type IAgentRuntime,
   type Memory,
@@ -12,11 +15,12 @@ import { opportunitiesTemplate } from "../templates";
 import axios, { AxiosResponse } from "axios";
 import { Pool } from "../utils";
 import { OpportunityParams } from "../types";
+import { WalletProvider } from "../providers/wallet";
 
 class MerklService {
   private apiUrl: string;
-
-  constructor() {
+  constructor(private walletProvider: WalletProvider) {
+    this.walletProvider = walletProvider;
     this.apiUrl = "https://api.merkl.xyz/v4/opportunities?chainId=42220";
   }
 
@@ -73,12 +77,29 @@ export const opportunitiesAction = {
       moreTvl: String(content.moreTvl),
     };
 
-
     try {
+      const privateKey = runtime.getSetting("EVM_PRIVATE_KEY") as `0x${string}`;
+      const walletProvider = new WalletProvider(
+        privateKey,
+        runtime.cacheManager
+      );
+      const publicClient = walletProvider.getPublicClient("celoAlfajores");
+      const walletClient = walletProvider.getWalletClient("celoAlfajores");
 
-      const merklService = new MerklService();
+      const merklService = new MerklService(walletProvider);
       const poolData = await merklService.fetchOpportunities();
       console.log(JSON.stringify(poolData, null, 2));
+
+      // Initialize the Steer client
+      const steerConfig: SteerConfig = {
+        environment: "production",
+        client: publicClient as any,
+        walletClient,
+      };
+
+      console.log(`steerConfig`, steerConfig);
+
+      const steerClient = new SteerClient(steerConfig);
 
       if (callback) {
         let text = "";

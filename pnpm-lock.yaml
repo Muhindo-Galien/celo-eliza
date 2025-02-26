@@ -53,6 +53,9 @@ importers:
       '@elizaos/plugin-starknet':
         specifier: 0.1.9
         version: 0.1.9(@google-cloud/vertexai@1.9.3)(@langchain/core@0.3.40(openai@4.85.2(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2)))(@langchain/groq@0.1.3(@langchain/core@0.3.40(openai@4.85.2(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2)))(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(@types/node@20.17.19)(axios@1.7.9)(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))(jsdom@25.0.1(bufferutil@4.0.9)(canvas@2.11.2)(utf-8-validate@5.0.10))(postcss@8.5.2)(qs@6.14.0)(react@19.0.0)(sswr@2.1.0(svelte@5.20.2))(svelte@5.20.2)(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))(whatwg-url@14.1.1)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(yaml@2.7.0)
+      '@steerprotocol/sdk':
+        specifier: ^1.5.0
+        version: 1.5.0(viem@2.23.2(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.2))
       '@tavily/core':
         specifier: 0.0.2
         version: 0.0.2
@@ -1335,6 +1338,11 @@ packages:
   '@google-cloud/vertexai@1.9.3':
     resolution: {integrity: sha512-35o5tIEMLW3JeFJOaaMNR2e5sq+6rpnhrF97PuAxeOm0GlqVTESKhkGj7a5B5mmJSSSU3hUfIhcQCRRsw4Ipzg==}
     engines: {node: '>=18.0.0'}
+
+  '@graphql-typed-document-node/core@3.2.0':
+    resolution: {integrity: sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
   '@grpc/grpc-js@1.12.6':
     resolution: {integrity: sha512-JXUj6PI0oqqzTGvKtzOkxtpsyPRNsrmhh41TtIz/zEB6J+AUiZZ0dxWzcMwO9Ns5rmSPuMdghlTbUuqIM48d3Q==}
@@ -3236,6 +3244,16 @@ packages:
 
   '@starknet-io/types-js@0.7.10':
     resolution: {integrity: sha512-1VtCqX4AHWJlRRSYGSn+4X1mqolI1Tdq62IwzoU2vUuEE72S1OlEeGhpvd6XsdqXcfHmVzYfj8k1XtKBQqwo9w==}
+
+  '@steerprotocol/api-sdk@1.0.2':
+    resolution: {integrity: sha512-xbDvUQMd3VPso1wp9bJHxn1FIaobnnvBDCoVC3/1mvCg7JIMhJmJXBkMS4/x3qXAZgIfPLqiCYW/9mWUV6XF8A==}
+    engines: {node: '>=14.0.0'}
+
+  '@steerprotocol/sdk@1.5.0':
+    resolution: {integrity: sha512-1CpiS3uHMUonc5QFceCAMmzOr3tDvf/b8TA1azkTVkXyLxKHoKoAPIlj4Rvit7jGQ8L+n4GPBe+RKSpeUYbpZw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      viem: ^2.22.0
 
   '@supercharge/promise-pool@3.2.0':
     resolution: {integrity: sha512-pj0cAALblTZBPtMltWOlZTQSLT07jIaFNeM8TWoJD1cQMgDB9mcMlVMoetiB35OzNJpqQ2b+QEtwiR9f20mADg==}
@@ -5655,6 +5673,15 @@ packages:
 
   graphemesplit@2.6.0:
     resolution: {integrity: sha512-rG9w2wAfkpg0DILa1pjnjNfucng3usON360shisqIMUBw/87pojcBSrHmeE4UwryAuBih7g8m1oilf5/u8EWdQ==}
+
+  graphql-request@6.1.0:
+    resolution: {integrity: sha512-p+XPfS4q7aIpKVcgmnZKhMNqhltk20hfXtkaIkTfjjmiKMJ5xrt5c743cL03y/K7y1rg3WrIC49xGiEQ4mxdNw==}
+    peerDependencies:
+      graphql: 14 - 16
+
+  graphql@16.10.0:
+    resolution: {integrity: sha512-AjqGKbDGUFRKIRCP9tCKiIGHyriz2oHEbPIbEtcSLSs4YjReZOIPQQWek4+6hjw62H9QShXHyaGivGiYVLeYFQ==}
+    engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
 
   groq-sdk@0.5.0:
     resolution: {integrity: sha512-RVmhW7qZ+XZoy5fIuSdx/LGQJONpL8MHgZEW7dFwTdgkzStub2XQx6OKv28CHogijdwH41J+Npj/z2jBPu3vmw==}
@@ -10609,9 +10636,9 @@ snapshots:
 
   '@coral-xyz/anchor@0.29.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
-      '@coral-xyz/borsh': 0.29.0(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@coral-xyz/borsh': 0.29.0(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@noble/hashes': 1.7.1
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       bn.js: 5.2.1
       bs58: 4.0.1
       buffer-layout: 1.2.2
@@ -10631,9 +10658,9 @@ snapshots:
   '@coral-xyz/anchor@0.30.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
       '@coral-xyz/anchor-errors': 0.30.1
-      '@coral-xyz/borsh': 0.30.1(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      '@coral-xyz/borsh': 0.30.1(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@noble/hashes': 1.7.1
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       bn.js: 5.2.1
       bs58: 4.0.1
       buffer-layout: 1.2.2
@@ -10674,15 +10701,9 @@ snapshots:
       bn.js: 5.2.1
       buffer-layout: 1.2.2
 
-  '@coral-xyz/borsh@0.29.0(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@coral-xyz/borsh@0.29.0(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      bn.js: 5.2.1
-      buffer-layout: 1.2.2
-
-  '@coral-xyz/borsh@0.30.1(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
-    dependencies:
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       bn.js: 5.2.1
       buffer-layout: 1.2.2
 
@@ -11396,6 +11417,7 @@ snapshots:
       '@lifi/data-types': 5.15.5
       '@lifi/sdk': 3.4.1(@solana/wallet-adapter-base@0.9.23(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))(typescript@5.7.3)(viem@2.23.2(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.2))
       '@lifi/types': 16.3.0
+      '@steerprotocol/sdk': 1.5.0(viem@2.23.2(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.2))
       '@uniswap/sdk-core': 7.5.0
       '@uniswap/v3-sdk': 3.24.0(hardhat@2.22.18(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@20.17.19)(typescript@5.6.3))(typescript@5.7.3)(utf-8-validate@5.0.10))
       axios: 1.7.9
@@ -12573,6 +12595,10 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  '@graphql-typed-document-node/core@3.2.0(graphql@16.10.0)':
+    dependencies:
+      graphql: 16.10.0
 
   '@grpc/grpc-js@1.12.6':
     dependencies:
@@ -14580,8 +14606,8 @@ snapshots:
   '@raydium-io/raydium-sdk-v2@0.1.82-alpha(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)(utf-8-validate@5.0.10)':
     dependencies:
       '@solana/buffer-layout': 4.0.1
-      '@solana/spl-token': 0.4.9(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)(utf-8-validate@5.0.10)
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@solana/spl-token': 0.4.9(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)(utf-8-validate@5.0.10)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       axios: 1.7.9
       big.js: 6.2.2
       bn.js: 5.2.1
@@ -14848,7 +14874,7 @@ snapshots:
   '@scure/starknet@1.1.0':
     dependencies:
       '@noble/curves': 1.7.0
-      '@noble/hashes': 1.6.0
+      '@noble/hashes': 1.6.1
 
   '@selderee/plugin-htmlparser2@0.11.0':
     dependencies:
@@ -15300,7 +15326,7 @@ snapshots:
   '@solana/buffer-layout-utils@0.2.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
       '@solana/buffer-layout': 4.0.1
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       bigint-buffer: 1.1.5
       bignumber.js: 9.1.2
     transitivePeerDependencies:
@@ -15585,14 +15611,6 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@solana/spl-token-group@0.0.4(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)':
-    dependencies:
-      '@solana/codecs': 2.0.0-preview.2(fastestsmallesttextencoderdecoder@1.0.22)
-      '@solana/spl-type-length-value': 0.1.0
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-    transitivePeerDependencies:
-      - fastestsmallesttextencoderdecoder
-
   '@solana/spl-token-group@0.0.4(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)':
     dependencies:
       '@solana/codecs': 2.0.0-preview.2(fastestsmallesttextencoderdecoder@1.0.22)
@@ -15622,6 +15640,14 @@ snapshots:
     dependencies:
       '@solana/codecs': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)
       '@solana/web3.js': 1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+    transitivePeerDependencies:
+      - fastestsmallesttextencoderdecoder
+      - typescript
+
+  '@solana/spl-token-group@0.0.7(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)':
+    dependencies:
+      '@solana/codecs': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - fastestsmallesttextencoderdecoder
       - typescript
@@ -15661,6 +15687,14 @@ snapshots:
   '@solana/spl-token-metadata@0.1.6(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)':
     dependencies:
       '@solana/codecs': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+    transitivePeerDependencies:
+      - fastestsmallesttextencoderdecoder
+      - typescript
+
+  '@solana/spl-token-metadata@0.1.6(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)':
+    dependencies:
+      '@solana/codecs': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)
       '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - fastestsmallesttextencoderdecoder
@@ -15759,42 +15793,27 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@solana/spl-token@0.4.6(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)(utf-8-validate@5.0.10)':
-    dependencies:
-      '@solana/buffer-layout': 4.0.1
-      '@solana/buffer-layout-utils': 0.2.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      '@solana/spl-token-group': 0.0.4(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)
-      '@solana/spl-token-metadata': 0.1.6(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      buffer: 6.0.3
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - fastestsmallesttextencoderdecoder
-      - typescript
-      - utf-8-validate
-
-  '@solana/spl-token@0.4.6(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)(utf-8-validate@5.0.10)':
-    dependencies:
-      '@solana/buffer-layout': 4.0.1
-      '@solana/buffer-layout-utils': 0.2.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      '@solana/spl-token-group': 0.0.4(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)
-      '@solana/spl-token-metadata': 0.1.6(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      buffer: 6.0.3
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - fastestsmallesttextencoderdecoder
-      - typescript
-      - utf-8-validate
-
   '@solana/spl-token@0.4.6(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)(utf-8-validate@5.0.10)':
     dependencies:
       '@solana/buffer-layout': 4.0.1
       '@solana/buffer-layout-utils': 0.2.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@solana/spl-token-group': 0.0.4(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)
       '@solana/spl-token-metadata': 0.1.6(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      buffer: 6.0.3
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - fastestsmallesttextencoderdecoder
+      - typescript
+      - utf-8-validate
+
+  '@solana/spl-token@0.4.6(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)(utf-8-validate@5.0.10)':
+    dependencies:
+      '@solana/buffer-layout': 4.0.1
+      '@solana/buffer-layout-utils': 0.2.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@solana/spl-token-group': 0.0.4(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)
+      '@solana/spl-token-metadata': 0.1.6(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)
       '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       buffer: 6.0.3
     transitivePeerDependencies:
@@ -15853,8 +15872,8 @@ snapshots:
     dependencies:
       '@solana/buffer-layout': 4.0.1
       '@solana/buffer-layout-utils': 0.2.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      '@solana/spl-token-group': 0.0.7(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
-      '@solana/spl-token-metadata': 0.1.6(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
+      '@solana/spl-token-group': 0.0.7(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
+      '@solana/spl-token-metadata': 0.1.6(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
       '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       buffer: 6.0.3
     transitivePeerDependencies:
@@ -15946,7 +15965,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.26.9
       '@noble/curves': 1.8.1
-      '@noble/hashes': 1.5.0
+      '@noble/hashes': 1.7.1
       '@solana/buffer-layout': 4.0.1
       agentkeepalive: 4.6.0
       bigint-buffer: 1.1.5
@@ -16059,6 +16078,22 @@ snapshots:
       - utf-8-validate
 
   '@starknet-io/types-js@0.7.10': {}
+
+  '@steerprotocol/api-sdk@1.0.2':
+    dependencies:
+      cross-fetch: 3.2.0
+      graphql: 16.10.0
+      graphql-request: 6.1.0(graphql@16.10.0)
+    transitivePeerDependencies:
+      - encoding
+
+  '@steerprotocol/sdk@1.5.0(viem@2.23.2(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.2))':
+    dependencies:
+      '@steerprotocol/api-sdk': 1.0.2
+      decimal.js: 10.5.0
+      viem: 2.23.2(bufferutil@4.0.9)(typescript@5.6.3)(utf-8-validate@5.0.10)(zod@3.24.2)
+    transitivePeerDependencies:
+      - encoding
 
   '@supercharge/promise-pool@3.2.0': {}
 
@@ -16409,7 +16444,7 @@ snapshots:
 
   '@types/ws@7.4.7':
     dependencies:
-      '@types/node': 12.20.55
+      '@types/node': 22.13.4
 
   '@types/ws@8.5.14':
     dependencies:
@@ -18740,7 +18775,7 @@ snapshots:
 
   extract-zip@2.0.1:
     dependencies:
-      debug: 4.3.4
+      debug: 4.4.0(supports-color@8.1.1)
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -18934,8 +18969,8 @@ snapshots:
     dependencies:
       '@coral-xyz/anchor': 0.30.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@raydium-io/raydium-sdk-v2': 0.1.82-alpha(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)(utf-8-validate@5.0.10)
-      '@solana/spl-token': 0.4.9(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)(utf-8-validate@5.0.10)
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@solana/spl-token': 0.4.9(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)(utf-8-validate@5.0.10)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       bs58: 6.0.0
       coral-xyz3: '@coral-xyz/anchor@0.29.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)'
     transitivePeerDependencies:
@@ -19239,6 +19274,16 @@ snapshots:
     dependencies:
       js-base64: 3.7.7
       unicode-trie: 2.0.0
+
+  graphql-request@6.1.0(graphql@16.10.0):
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.10.0)
+      cross-fetch: 3.2.0
+      graphql: 16.10.0
+    transitivePeerDependencies:
+      - encoding
+
+  graphql@16.10.0: {}
 
   groq-sdk@0.5.0:
     dependencies:
@@ -21392,8 +21437,8 @@ snapshots:
     dependencies:
       '@coral-xyz/anchor': 0.30.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@rollup/plugin-json': 6.1.0(rollup@4.34.8)
-      '@solana/spl-token': 0.4.6(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)(utf-8-validate@5.0.10)
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@solana/spl-token': 0.4.6(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)(utf-8-validate@5.0.10)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -21406,8 +21451,8 @@ snapshots:
     dependencies:
       '@coral-xyz/anchor': 0.30.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@rollup/plugin-json': 6.1.0(rollup@4.34.8)
-      '@solana/spl-token': 0.4.6(@solana/web3.js@1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)(utf-8-validate@5.0.10)
-      '@solana/web3.js': 1.95.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@solana/spl-token': 0.4.6(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)(utf-8-validate@5.0.10)
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - bufferutil
       - encoding

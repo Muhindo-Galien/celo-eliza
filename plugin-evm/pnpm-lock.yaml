@@ -23,6 +23,9 @@ importers:
       '@lifi/types':
         specifier: 16.3.0
         version: 16.3.0
+      '@steerprotocol/sdk':
+        specifier: ^1.5.0
+        version: 1.5.0(viem@2.23.2(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.2))
       '@uniswap/sdk-core':
         specifier: ^7.5.0
         version: 7.5.0
@@ -683,6 +686,11 @@ packages:
     resolution: {integrity: sha512-35o5tIEMLW3JeFJOaaMNR2e5sq+6rpnhrF97PuAxeOm0GlqVTESKhkGj7a5B5mmJSSSU3hUfIhcQCRRsw4Ipzg==}
     engines: {node: '>=18.0.0'}
 
+  '@graphql-typed-document-node/core@3.2.0':
+    resolution: {integrity: sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
     engines: {node: '>=12'}
@@ -1327,6 +1335,16 @@ packages:
   '@solana/web3.js@1.95.8':
     resolution: {integrity: sha512-sBHzNh7dHMrmNS5xPD1d0Xa2QffW/RXaxu/OysRXBfwTp+LYqGGmMtCYYwrHPrN5rjAmJCsQRNAwv4FM0t3B6g==}
 
+  '@steerprotocol/api-sdk@1.0.2':
+    resolution: {integrity: sha512-xbDvUQMd3VPso1wp9bJHxn1FIaobnnvBDCoVC3/1mvCg7JIMhJmJXBkMS4/x3qXAZgIfPLqiCYW/9mWUV6XF8A==}
+    engines: {node: '>=14.0.0'}
+
+  '@steerprotocol/sdk@1.5.0':
+    resolution: {integrity: sha512-1CpiS3uHMUonc5QFceCAMmzOr3tDvf/b8TA1azkTVkXyLxKHoKoAPIlj4Rvit7jGQ8L+n4GPBe+RKSpeUYbpZw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      viem: ^2.22.0
+
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
 
@@ -1905,6 +1923,9 @@ packages:
   decimal.js-light@2.5.1:
     resolution: {integrity: sha512-qIMFpTMZmny+MMIitAB6D7iVPEorVw6YQRWkvarTkT4tBeSLLiHzcwj6q0MmYSFCiVpiqPJTJEYIrpcPzVEIvg==}
 
+  decimal.js@10.5.0:
+    resolution: {integrity: sha512-8vDa8Qxvr/+d94hSh5P3IJwI5t8/c0KsMp+g8bNw9cY2icONa5aPfvKeieW1WlG0WQYwwhJ7mjui2xtiePQSXw==}
+
   deep-eql@5.0.2:
     resolution: {integrity: sha512-h5k/5U50IJJFpzfL6nO9jaaumfjO/f2NjK/oYB2Djzm4p9L+3T9qWpZqZ2hAbLPuuYq9wrU08WQyBTL5GbPk5Q==}
     engines: {node: '>=6'}
@@ -2227,6 +2248,15 @@ packages:
 
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
+
+  graphql-request@6.1.0:
+    resolution: {integrity: sha512-p+XPfS4q7aIpKVcgmnZKhMNqhltk20hfXtkaIkTfjjmiKMJ5xrt5c743cL03y/K7y1rg3WrIC49xGiEQ4mxdNw==}
+    peerDependencies:
+      graphql: 14 - 16
+
+  graphql@16.10.0:
+    resolution: {integrity: sha512-AjqGKbDGUFRKIRCP9tCKiIGHyriz2oHEbPIbEtcSLSs4YjReZOIPQQWek4+6hjw62H9QShXHyaGivGiYVLeYFQ==}
+    engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
 
   gtoken@7.1.0:
     resolution: {integrity: sha512-pCcEwRi+TKpMlxAQObHDQ56KawURgyAf6jtIY046fJ5tIv3zDe/LEIubckAO8fj6JnAxLdmWkUfNyulQ2iKdEw==}
@@ -4513,6 +4543,10 @@ snapshots:
       - encoding
       - supports-color
 
+  '@graphql-typed-document-node/core@3.2.0(graphql@16.10.0)':
+    dependencies:
+      graphql: 16.10.0
+
   '@isaacs/cliui@8.0.2':
     dependencies:
       string-width: 5.1.2
@@ -5353,6 +5387,22 @@ snapshots:
       - encoding
       - utf-8-validate
 
+  '@steerprotocol/api-sdk@1.0.2':
+    dependencies:
+      cross-fetch: 3.2.0
+      graphql: 16.10.0
+      graphql-request: 6.1.0(graphql@16.10.0)
+    transitivePeerDependencies:
+      - encoding
+
+  '@steerprotocol/sdk@1.5.0(viem@2.23.2(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.2))':
+    dependencies:
+      '@steerprotocol/api-sdk': 1.0.2
+      decimal.js: 10.5.0
+      viem: 2.23.2(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.2)
+    transitivePeerDependencies:
+      - encoding
+
   '@swc/helpers@0.5.15':
     dependencies:
       tslib: 2.8.1
@@ -5981,6 +6031,8 @@ snapshots:
 
   decimal.js-light@2.5.1: {}
 
+  decimal.js@10.5.0: {}
+
   deep-eql@5.0.2: {}
 
   delay@5.0.0: {}
@@ -6356,6 +6408,16 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
+  graphql-request@6.1.0(graphql@16.10.0):
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.10.0)
+      cross-fetch: 3.2.0
+      graphql: 16.10.0
+    transitivePeerDependencies:
+      - encoding
+
+  graphql@16.10.0: {}
+
   gtoken@7.1.0:
     dependencies:
       gaxios: 6.7.1
@@ -6681,7 +6743,7 @@ snapshots:
       semver: 7.7.1
       uuid: 10.0.0
     optionalDependencies:
-      openai: 4.73.0(zod@3.23.8)
+      openai: 4.73.0(zod@3.24.2)
 
   lilconfig@3.1.3: {}
 
@@ -6872,6 +6934,21 @@ snapshots:
       zod: 3.23.8
     transitivePeerDependencies:
       - encoding
+
+  openai@4.73.0(zod@3.24.2):
+    dependencies:
+      '@types/node': 18.19.76
+      '@types/node-fetch': 2.6.12
+      abort-controller: 3.0.0
+      agentkeepalive: 4.6.0
+      form-data-encoder: 1.7.2
+      formdata-node: 4.4.1
+      node-fetch: 2.7.0
+    optionalDependencies:
+      zod: 3.24.2
+    transitivePeerDependencies:
+      - encoding
+    optional: true
 
   openai@4.85.2(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.2):
     dependencies:

@@ -29,14 +29,13 @@ cp .env.example .env
 
 ### Add login credentials and keys to .env
 ```
-DISCORD_APPLICATION_ID="discord-application-id"
-DISCORD_API_TOKEN="discord-api-token"
+
+# EVM
+EVM_PRIVATE_KEY=
+EVM_PROVIDER_URL=
 ...
 OPENROUTER_API_KEY="sk-xx-xx-xxx"
-...
-TWITTER_USERNAME="username"
-TWITTER_PASSWORD="password"
-TWITTER_EMAIL="your@email.com"
+TOGETHER_API_KEY=             # Together API Key
 ```
 
 ## Install dependencies and start your agent

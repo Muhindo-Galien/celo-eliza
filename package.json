@@ -25,6 +25,7 @@
     "@elizaos/plugin-node": "0.1.9",
     "@elizaos/plugin-solana": "0.1.9",
     "@elizaos/plugin-starknet": "0.1.9",
+    "@steerprotocol/sdk": "^1.5.0",
     "@tavily/core": "0.0.2",
     "@uniswap/universal-router-sdk": "^4.17.0",
     "amqplib": "0.10.5",

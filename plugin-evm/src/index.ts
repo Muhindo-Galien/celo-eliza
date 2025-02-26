@@ -10,6 +10,7 @@ import { evmWalletProvider } from "./providers/wallet";
 import { addLiquidityAction } from "./actions/addLiquidity";
 // import { poolInfoAction } from "./actions/poolInfo";
 import { opportunitiesAction } from "./actions/opportunities";
+import { greetingAction } from "./actions/greeting";
 
 export const evmPlugin: Plugin = {
   name: "evm",
@@ -22,6 +23,7 @@ export const evmPlugin: Plugin = {
     faucetAction,
     addLiquidityAction,
     opportunitiesAction,
+    greetingAction,
   ],
 };
 
