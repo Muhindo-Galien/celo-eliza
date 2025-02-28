@@ -1,30 +1,30 @@
 import {
-    createPublicClient,
-    createTestClient,
-    createWalletClient,
-    formatUnits,
-    http,
-    publicActions,
-    walletActions,
+  createPublicClient,
+  createTestClient,
+  createWalletClient,
+  formatUnits,
+  http,
+  publicActions,
+  walletActions,
 } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import {
-    type IAgentRuntime,
-    type Provider,
-    type Memory,
-    type State,
-    type ICacheManager,
-    elizaLogger,
+  type IAgentRuntime,
+  type Provider,
+  type Memory,
+  type State,
+  type ICacheManager,
+  elizaLogger,
 } from "@elizaos/core";
 import type {
-    Address,
-    WalletClient,
-    PublicClient,
-    Chain,
-    HttpTransport,
-    Account,
-    PrivateKeyAccount,
-    TestClient,
+  Address,
+  WalletClient,
+  PublicClient,
+  Chain,
+  HttpTransport,
+  Account,
+  PrivateKeyAccount,
+  TestClient,
 } from "viem";
 import * as viemChains from "viem/chains";
 import { DeriveKeyProvider, TEEMode } from "@elizaos/plugin-tee";
@@ -36,7 +36,7 @@ import type { SupportedChain } from "../types";
 export class WalletProvider {
   private cache: NodeCache;
   private cacheKey = "evm/wallet";
-  private currentChain: SupportedChain = "celoAlfajores";
+  private currentChain: SupportedChain = "celo";
   private CACHE_EXPIRY_SEC = 5;
   chains: Record<string, Chain> = { ...viemChains };
   account: PrivateKeyAccount;
@@ -258,83 +258,76 @@ export class WalletProvider {
 }
 
 const genChainsFromRuntime = (
-    runtime: IAgentRuntime
+  runtime: IAgentRuntime
 ): Record<string, Chain> => {
-    const chainNames =
-        (runtime.character.settings.chains?.evm as SupportedChain[]) || [];
-    const chains: Record<string, Chain> = {};
+  const chainNames =
+    (runtime.character.settings.chains?.evm as SupportedChain[]) || [];
+  const chains: Record<string, Chain> = {};
 
-    for (const chainName of chainNames) {
-        const rpcUrl = runtime.getSetting(
-            `ETHEREUM_PROVIDER_${chainName.toUpperCase()}`
-        );
-        const chain = WalletProvider.genChainFromName(chainName, rpcUrl);
-        chains[chainName] = chain;
-    }
+  for (const chainName of chainNames) {
+    const rpcUrl = runtime.getSetting(
+      `ETHEREUM_PROVIDER_${chainName.toUpperCase()}`
+    );
+    const chain = WalletProvider.genChainFromName(chainName, rpcUrl);
+    chains[chainName] = chain;
+  }
 
-    const mainnet_rpcurl = runtime.getSetting("EVM_PROVIDER_URL");
-    if (mainnet_rpcurl) {
-        const chain = WalletProvider.genChainFromName(
-            "celoAlfajores",
-            mainnet_rpcurl
-        );
-        chains["celoAlfajores"] = chain;
-    }
+  const mainnet_rpcurl = runtime.getSetting("EVM_PROVIDER_URL");
+  if (mainnet_rpcurl) {
+    const chain = WalletProvider.genChainFromName("celo", mainnet_rpcurl);
+    chains["celo"] = chain;
+  }
 
-    return chains;
+  return chains;
 };
 
 export const initWalletProvider = async (runtime: IAgentRuntime) => {
-    const teeMode = runtime.getSetting("TEE_MODE") || TEEMode.OFF;
+  const teeMode = runtime.getSetting("TEE_MODE") || TEEMode.OFF;
 
-    const chains = genChainsFromRuntime(runtime);
+  const chains = genChainsFromRuntime(runtime);
 
-    if (teeMode !== TEEMode.OFF) {
-        const walletSecretSalt = runtime.getSetting("WALLET_SECRET_SALT");
-        if (!walletSecretSalt) {
-            throw new Error(
-                "WALLET_SECRET_SALT required when TEE_MODE is enabled"
-            );
-        }
-
-        const deriveKeyProvider = new DeriveKeyProvider(teeMode);
-        const deriveKeyResult = await deriveKeyProvider.deriveEcdsaKeypair(
-            walletSecretSalt,
-            "evm",
-            runtime.agentId
-        );
-        return new WalletProvider(
-            deriveKeyResult.keypair,
-            runtime.cacheManager,
-            chains
-        );
-    } else {
-        const privateKey = runtime.getSetting(
-            "EVM_PRIVATE_KEY"
-        ) as `0x${string}`;
-        if (!privateKey) {
-            throw new Error("EVM_PRIVATE_KEY is missing");
-        }
-        return new WalletProvider(privateKey, runtime.cacheManager, chains);
+  if (teeMode !== TEEMode.OFF) {
+    const walletSecretSalt = runtime.getSetting("WALLET_SECRET_SALT");
+    if (!walletSecretSalt) {
+      throw new Error("WALLET_SECRET_SALT required when TEE_MODE is enabled");
     }
+
+    const deriveKeyProvider = new DeriveKeyProvider(teeMode);
+    const deriveKeyResult = await deriveKeyProvider.deriveEcdsaKeypair(
+      walletSecretSalt,
+      "evm",
+      runtime.agentId
+    );
+    return new WalletProvider(
+      deriveKeyResult.keypair,
+      runtime.cacheManager,
+      chains
+    );
+  } else {
+    const privateKey = runtime.getSetting("EVM_PRIVATE_KEY") as `0x${string}`;
+    if (!privateKey) {
+      throw new Error("EVM_PRIVATE_KEY is missing");
+    }
+    return new WalletProvider(privateKey, runtime.cacheManager, chains);
+  }
 };
 
 export const evmWalletProvider: Provider = {
-    async get(
-        runtime: IAgentRuntime,
-        _message: Memory,
-        state?: State
-    ): Promise<string | null> {
-        try {
-            const walletProvider = await initWalletProvider(runtime);
-            const address = walletProvider.getAddress();
-            const balance = await walletProvider.getWalletBalance();
-            const chain = walletProvider.getCurrentChain();
-            const agentName = state?.agentName || "The agent";
-            return `${agentName}'s EVM Wallet Address: ${address}\nBalance: ${balance} ${chain.nativeCurrency.symbol}\nChain ID: ${chain.id}, Name: ${chain.name}`;
-        } catch (error) {
-            console.error("Error in EVM wallet provider:", error);
-            return null;
-        }
-    },
+  async get(
+    runtime: IAgentRuntime,
+    _message: Memory,
+    state?: State
+  ): Promise<string | null> {
+    try {
+      const walletProvider = await initWalletProvider(runtime);
+      const address = walletProvider.getAddress();
+      const balance = await walletProvider.getWalletBalance();
+      const chain = walletProvider.getCurrentChain();
+      const agentName = state?.agentName || "The agent";
+      return `${agentName}'s EVM Wallet Address: ${address}\nBalance: ${balance} ${chain.nativeCurrency.symbol}\nChain ID: ${chain.id}, Name: ${chain.name}`;
+    } catch (error) {
+      console.error("Error in EVM wallet provider:", error);
+      return null;
+    }
+  },
 };

@@ -145,9 +145,11 @@ export interface FaucetParams {
 }
 export interface LiquidityParams {
   chain: SupportedChain;
-  icebear: string;
-  celo: string;
+  olame?: string;
+  celo?: string;
+  olameLp?: string;
 }
+
 
 export interface InfoParams {
   chain: SupportedChain;

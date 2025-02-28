@@ -9,7 +9,7 @@ import {
   ModelClass,
 } from "@elizaos/core";
 import { WalletProvider } from "../providers/wallet";
-import { addLiquidityTemplate } from "../templates";
+import { removeLiquidityTemplate } from "../templates";
 import type { LiquidityParams, SupportedChain, Transaction } from "../types";
 import { getTxData, sendTransaction } from "./services";
 import {
@@ -20,12 +20,12 @@ import {
 } from "../contracts/artifacts";
 import { Abi, parseEther } from "viem";
 
-export class AddLiquidityAction {
+export class RemoveLiquidityAction {
   constructor(private walletProvider: WalletProvider) {
     this.walletProvider = walletProvider;
   }
 
-  async addLiquidity(params: LiquidityParams): Promise<Transaction> {
+  async removeLiquidity(params: LiquidityParams): Promise<Transaction> {
     const walletClient = this.walletProvider.getWalletClient(params.chain);
 
     try {
@@ -34,45 +34,23 @@ export class AddLiquidityAction {
       // Log current block before sending transaction
       const publicClient = this.walletProvider.getPublicClient(params.chain);
 
-      const approvalHash = await sendTransaction(
+      let hash = await sendTransaction(
         walletClient,
         walletClient.account,
-        TOKEN_CONTRACT_ADDRESS,
+        EXCHANGE_CONTRACT_ADDRESS,
         BigInt(0),
-        getTxData(TOKEN_CONTRACT_ABI as Abi, "approve", [
-          EXCHANGE_CONTRACT_ADDRESS,
-          parseEther(params.olame),
+        getTxData(EXCHANGE_CONTRACT_ABI as Abi, "removeLiquidity", [
+          parseEther(params.olameLp),
         ]),
         chainConfig
       );
-
-      const approvalReceipt = await publicClient.waitForTransactionReceipt({
-        hash: approvalHash,
-      });
-
-      console.log("Successfully approved ✅");
-      
-
-      let hash;
-      if (approvalReceipt) {
-        hash = await sendTransaction(
-          walletClient,
-          walletClient.account,
-          EXCHANGE_CONTRACT_ADDRESS,
-          BigInt(0),
-          getTxData(EXCHANGE_CONTRACT_ABI as Abi, "addLiquidity", [
-            parseEther(params.olame),
-          ]),
-          chainConfig
-        );
-      }
 
       const receipt = await publicClient.waitForTransactionReceipt({
         hash,
       });
 
       console.log("Successfully added ✅");
-      
+
       return {
         hash,
         from: walletClient.account.address,
@@ -90,8 +68,8 @@ export class AddLiquidityAction {
   }
 }
 
-export const addLiquidityAction = {
-  name: "addLiquidity",
+export const removeLiquidityAction = {
+  name: "removeLiquidity",
   description: "Add liquidity to the pool",
   handler: async (
     runtime: IAgentRuntime,
@@ -100,12 +78,12 @@ export const addLiquidityAction = {
     _options: any,
     callback?: any
   ) => {
-    elizaLogger.log("addLiquidity action handler called");
+    elizaLogger.log("removeLiquidity action handler called");
 
     // Compose addLiquidity context
     const addLiquidityContext = composeContext({
       state,
-      template: addLiquidityTemplate,
+      template: removeLiquidityTemplate,
     });
     const content = await generateObjectDeprecated({
       runtime,
@@ -113,18 +91,16 @@ export const addLiquidityAction = {
       modelClass: ModelClass.LARGE,
     });
 
-    const addLiquidityOptions: LiquidityParams = {
+    const removeLiquidityOptions: LiquidityParams = {
       chain: content.chain,
-      olame: content.olame,
-      celo: content.celo,
+      olameLp: content.olameLp,
     };
 
     try {
       // Convert options to LiquidityParams
       const liquidityParams: LiquidityParams = {
         chain: "celo" as SupportedChain,
-        celo: String(addLiquidityOptions.celo),
-        olame: String(addLiquidityOptions.olame),
+        olameLp: String(removeLiquidityOptions.olameLp),
       };
 
       const privateKey = runtime.getSetting("EVM_PRIVATE_KEY") as `0x${string}`;
@@ -132,22 +108,22 @@ export const addLiquidityAction = {
         privateKey,
         runtime.cacheManager
       );
-      const action = new AddLiquidityAction(walletProvider);
+      const action = new RemoveLiquidityAction(walletProvider);
       console.log("liquidityParams", liquidityParams);
 
-      const approvalResp = await action.addLiquidity(liquidityParams);
+      // const approvalResp = await action.removeLiquidity(liquidityParams);
 
-      if (callback) {
-        callback({
-          text: `Successfully added ${liquidityParams.olame} olame tokens approved ✅  \nTransaction Hash: ${approvalResp.hash}`,
-          content: {
-            success: true,
-            hash: approvalResp.hash,
-            recipient: approvalResp.to,
-            chain: content.chain,
-          },
-        });
-      }
+      // if (callback) {
+      //   callback({
+      //     text: `Successfully removed ${liquidityParams.olameLp} olame tokens ✅  \nTransaction Hash: ${approvalResp.hash}`,
+      //     content: {
+      //       success: true,
+      //       hash: approvalResp.hash,
+      //       recipient: approvalResp.to,
+      //       chain: content.chain,
+      //     },
+      //   });
+      // }
       return true;
     } catch (error) {
       console.error("Error in add liquidity handler:", error.message);
@@ -157,7 +133,7 @@ export const addLiquidityAction = {
       return false;
     }
   },
-  template: addLiquidityTemplate,
+  template: removeLiquidityTemplate,
   validate: async (runtime: IAgentRuntime) => {
     const privateKey = runtime.getSetting("EVM_PRIVATE_KEY");
     return typeof privateKey === "string" && privateKey.startsWith("0x");
@@ -167,8 +143,8 @@ export const addLiquidityAction = {
       {
         user: "user",
         content: {
-          text: "Add liquidity for 5 olame",
-          action: "ADD_OLAME_LIQUIDITY",
+          text: "remove liquidity of 0.1 OLAME-LP",
+          action: "REMOVE_LIQUIDITY",
         },
       },
     ],
@@ -176,11 +152,11 @@ export const addLiquidityAction = {
       {
         user: "user",
         content: {
-          text: "Add liquidity for 01 celo",
-          action: "ADD_OLAME_LIQUIDITY",
+          text: "remove 1 OLAME-LP",
+          action: "REMOVE_LIQUIDITY",
         },
       },
     ],
   ],
-  similes: ["ADD_OLAME_LIQUIDITY", "ADD_OLAME_CELO_LIQUIDITY"],
+  similes: ["REMOVE_LIQUIDITY", "REMOVE_LIQUIDITY"],
 }; // TODO: add more examples

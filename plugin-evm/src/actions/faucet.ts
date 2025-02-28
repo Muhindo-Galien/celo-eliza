@@ -66,7 +66,7 @@ export const faucetAction = {
     try {
       // Convert options to FaucetParams
       const faucetParams: FaucetParams = {
-        chain: "celoAlfajores" as SupportedChain,
+        chain: "celo" as SupportedChain,
       };
 
       const privateKey = runtime.getSetting("EVM_PRIVATE_KEY") as `0x${string}`;
@@ -94,7 +94,7 @@ export const faucetAction = {
       {
         user: "user",
         content: {
-          text: "Get ICB tokens from the faucet on celoAlfajores",
+          text: "Get Olame tokens from the faucet on celo",
           action: "FAUCET",
         },
       },
@@ -103,7 +103,16 @@ export const faucetAction = {
       {
         user: "user",
         content: {
-          text: "Send ICB tokens from the faucet on celoAlfajores",
+          text: "Send Olame me tokens from the faucet on celo",
+          action: "FAUCET",
+        },
+      },
+    ],
+    [
+      {
+        user: "user",
+        content: {
+          text: "Mint for me some  Olame me tokens on celo",
           action: "FAUCET",
         },
       },

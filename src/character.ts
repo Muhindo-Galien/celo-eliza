@@ -14,7 +14,7 @@ export const character: Character = {
   modelProvider: ModelProviderName.TOGETHER,
   settings: {
     chains: {
-      evm: ["celoAlfajores"],
+      evm: ["celo"],
     },
     secrets: {},
     voice: {
